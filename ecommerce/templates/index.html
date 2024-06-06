@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+    
+<!--Main section Start-->
+<div class="row">
+  <!--sideBar Start-->
+    <div class="col-md-3 mt-3 bgcolor p-3">
+        <h5>Filter By Category</h5>
+        <hr>
+        <a href="/products" class="anchor">All</a> <br>
+        <a href="/catfilter/1" class="anchor">Mobile</a> <br>
+        <a href="/catfilter/2" class="anchor">Cloth</a> <br>
+        <a href="/catfilter/3" class="anchor">Shoes</a> <br><br>
+
+        <h5>Sort By Price</h5>
+        <hr>
+        <a href="/sort/1" class="anchor">High to Low</a><br>
+        <a href="/sort/0" class="anchor">Low to High</a><br><br>
+
+        <h5>Filter By Price</h5>
+        <hr>
+        <form method="GET" action="/filterbyprice">
+            <div class="mb-3">
+                <label for="Input1" class="form-label">Min</label>
+                <input type="number" class="form-control" id="Input1" placeholder="Minimum Price" name="min">
+            </div>
+            <div class="mb-3">
+                <label for="Input2" class="form-label">Max</label>
+                <input type="number" class="form-control" id="Input1" placeholder="Maximum Price" name="max">
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-danger" value="search">
+            </div>
+        </form>
+    </div><!--Side Bar end-->
+    
+    <div class="col-md-9">
+      <div class="row">
+        {% if errmsg %}
+        <div class="alert alert-danger">
+          {{errmsg}}
+        </div>
+        {% endif %}
+        {% for x in data %}
+        
+        <div class="col-md-3">  
+          <div class="card" style="width: 100%;">
+          <img src="{{x.pimage.url}}" class="card-img-top" alt="..." height="150px">
+            <div class="card-body">
+              <h5 class="card-title">{{x.name}}</h5>
+              <p class="card-text">{{x.pdetails}}</p>
+              <p class="card-text">{{x.price}}</p>
+              <a href="/product_details/{{x.id}}" class="btn btn-primary">See Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!--  
+        <div class="col-md-3">  
+          <div class="card" style="width: 100%;">
+          <img src="{% static 'images/mensShirt.jpeg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Shirt</h5>
+              <p class="card-text">Mens Shirt</p>
+              <a href="#" class="btn btn-primary">See Details</a>
+            </div>
+          </div>
+        </div>
+      -->
+      </div>
+    </div><!--Products List-->
+</div><!--Main Section End--> 
+
+{% endblock 'main' %}
